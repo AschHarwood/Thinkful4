@@ -3,6 +3,7 @@ import datetime
 import time
 import pandas as pd 
 from pandas.io.json import json_normalize
+import sqlite3 as lite
 
 start_date = datetime.datetime.now() - datetime.timedelta(days=30)
 #start_date = start_date.strftime('%s')
@@ -21,7 +22,11 @@ df = json_normalize(cities_weather.json()['hourly'])
 dailymaxtemp = max(df)
 
 """need to create sql database and table"""
-#insert code here
+con = lite.connect('weather.db')
+cur = con.cursor()
+
+with con:
+	con.execute('CREATE TABLE daily_max_temp')
 
 """loop to iterate days"""
 
